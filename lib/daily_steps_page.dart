@@ -5,6 +5,7 @@ import 'package:hive/hive.dart';
 import 'package:jiffy/jiffy.dart';
 import 'package:pedometer/pedometer.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 class DailyStepsPage extends StatefulWidget {
   @override
@@ -12,6 +13,9 @@ class DailyStepsPage extends StatefulWidget {
 }
 
 class _DailyStepsPageState extends State<DailyStepsPage> {
+//static Color creamColor = Color(0xfff5f5f5);
+  static Color darkBluishColor = Color(0xff403b58);
+
   Pedometer _pedometer;
   StreamSubscription<int> _subscription;
   Box<int> stepsBox = Hive.box('steps');
@@ -28,62 +32,94 @@ class _DailyStepsPageState extends State<DailyStepsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: carbonBlack,
-      appBar: AppBar(
-        title: Text(
-          "Daily Steps Tracker",
-          style: GoogleFonts.darkerGrotesque(fontSize: 40),
+        backgroundColor: Colors.white,
+        appBar: AppBar(
+          title:
+              "Daily Steps Tracker".text.color(darkBluishColor).xl2.bold.make(),
+          centerTitle: true,
+          backgroundColor: Colors.transparent,
+          elevation: 0,
         ),
-        centerTitle: true,
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Spacer(),
-            Card(
-              color: Colors.black87.withOpacity(0.7),
-              elevation: 3,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10)),
-              child: Container(
-                margin: const EdgeInsets.only(
-                  top: 10,
-                  bottom: 30,
-                  right: 20,
-                  left: 20,
-                ),
-                child: Column(
-                  children: <Widget>[
-                    gradientShaderMask(
-                      child: Text(
-                        todaySteps?.toString() ?? '0',
-                        style: GoogleFonts.darkerGrotesque(
-                          fontSize: 80,
-                          color: Colors.white,
-                          fontWeight: FontWeight.w900,
-                        ),
-                      ),
-                    ),
-                    Text(
-                      "Steps Today",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 28,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            Spacer(),
-          ],
-        ),
-      ),
-    );
+        body: SafeArea(
+          bottom: false,
+          child: Container(
+            child: Column(
+                //mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Image.asset("assets/images/runner2.png").p64(),
+                  VxArc(
+                          height: 20,
+                          arcType: VxArcType.CONVEY,
+                          edge: VxEdge.TOP,
+                          child: VxBox(
+                                  child: Column(
+                            children: [
+                              10.heightBox,
+                              "Don't stop till you drop!"
+                                  .text
+                                  .xl2
+                                  .color(Colors.white)
+                                  .fontFamily(GoogleFonts.poppins().fontFamily)
+                                  .bold
+                                  .make()
+                                  .p32()
+                                  .centered(),
+                              Padding(
+                                padding: const EdgeInsets.all(64.0),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Card(
+                                      color: Colors.black87.withOpacity(0.7),
+                                      elevation: 3,
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10)),
+                                      child: Container(
+                                        margin: const EdgeInsets.only(
+                                          top: 08,
+                                          bottom: 30,
+                                          right: 20,
+                                          left: 20,
+                                        ),
+                                        child: Column(
+                                          children: <Widget>[
+                                            gradientShaderMask(
+                                              child: Text(
+                                                todaySteps?.toString() ?? '0',
+                                                style:
+                                                    GoogleFonts.darkerGrotesque(
+                                                  fontSize: 80,
+                                                  color: Colors.white,
+                                                  fontWeight: FontWeight.w900,
+                                                ),
+                                              ),
+                                            ),
+                                            Text(
+                                              "Steps Today",
+                                              style: GoogleFonts.poppins(
+                                                color: Colors.white,
+                                                fontSize: 20,
+                                                fontWeight: FontWeight.w700,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ))
+                              .color(darkBluishColor)
+                              .square(100)
+                              .width(context.screenWidth)
+                              .make())
+                      .expand(),
+                ]),
+          ),
+        ));
   }
 
   @override

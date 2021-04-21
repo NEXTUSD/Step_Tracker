@@ -26,11 +26,6 @@ class MyApp extends StatelessWidget {
         ),
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      darkTheme: ThemeData.dark().copyWith(
-        textTheme: GoogleFonts.darkerGrotesqueTextTheme(
-          Theme.of(context).textTheme,
-        ),
-      ),
     );
   }
 }
